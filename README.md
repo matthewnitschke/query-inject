@@ -1,3 +1,5 @@
+![icon](https://github.com/matthewnitschke/query-inject/blob/master/128.png)
+
 # Query Inject
 
 > Pending chrome web store extension approval
