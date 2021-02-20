@@ -1,6 +1,6 @@
 # Query Inject
 
-> Pending extension approval
+> Pending chrome web store extension approval
 
 
 A small chrome extension that injects query parameters before the page loads.
