@@ -6,6 +6,7 @@
 A small chrome extension that injects query parameters before the page loads.
 
 ## Usage
+![Extension](https://user-images.githubusercontent.com/6363089/108611141-d3c41b80-7398-11eb-9820-7e5e5d29e7e7.png)
 
 
 ## Installation
