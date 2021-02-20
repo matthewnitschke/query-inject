@@ -5,6 +5,9 @@
 
 A small chrome extension that injects query parameters before the page loads.
 
+## Usage
+
+
 ## Installation
 
 1. Clone source to desired location
