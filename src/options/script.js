@@ -2,7 +2,7 @@ var app = new Vue({
     el: '#app',
     data: {
         globalEnabled: true,
-        matchers: [{
+        matchGroups: [{
             matchRegex: 'http://www.google.com',
             queryParams: [{
                 enabled: true,
@@ -15,39 +15,38 @@ var app = new Vue({
         this.load();
     },
     methods: {
-        addMatcher: function () {
-            this.matchers.push({
+        addMatchGroup: function () {
+            this.matchGroups.push({
                 matchRegex: '',
                 queryParams: []
             })
             this.save();
         },
-        removeMatcher: function(matcherIndex) {
-            this.matchers.splice(matcherIndex, 1);
+        removeMatcher: function(matchGroupIndex) {
+            this.matchGroups.splice(matchGroupIndex, 1);
             this.save();
         },
-        addQueryParam: function(matcherIndex) {
-            this.matchers[matcherIndex].queryParams.push({
+        addQueryParam: function(matchGroupIndex) {
+            this.matchGroups[matchGroupIndex].queryParams.push({
                 enabled: true
             })
             this.save();
         },
-        removeQueryParam: function(matcherIndex, item) {
-            let index = this.matchers[matcherIndex].queryParams.indexOf(item)
-            this.matchers[matcherIndex].queryParams.splice(index, 1)
+        removeQueryParam: function(matchGroupIndex, item) {
+            let index = this.matchGroups[matchGroupIndex].queryParams.indexOf(item)
+            this.matchGroups[matchGroupIndex].queryParams.splice(index, 1)
             this.save();
         },
         save: function() {
-            console.log('saved');
             chrome.storage.sync.set({
                 globalEnabled: this.globalEnabled,
-                matchGroups: this.matchers
+                matchGroups: this.matchGroups
             });
         },
         load: function() {
             chrome.storage.sync.get(['globalEnabled', 'matchGroups'], ({globalEnabled, matchGroups}) => {
                 this.globalEnabled = globalEnabled ?? this.globalEnabled;
-                this.matchers = matchGroups ?? this.matchers;
+                this.matchGroups = matchGroups ?? this.matchGroups;
             });            
         } 
     }

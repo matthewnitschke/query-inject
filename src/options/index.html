@@ -21,26 +21,26 @@
 
             <h3>Match Groups</h3>
             
-            <div v-for="(matcher, matcherIndex) in matchers">
+            <div v-for="(matchGroup, matchGroupIndex) in matchGroups">
                 <div class="match-group">
-                    <input type="button" class="delete-button" value="✕" v-on:click="removeMatcher(matcherIndex)"/>
+                    <input type="button" class="delete-button" value="✕" v-on:click="removeMatchGroup(matchGroupIndex)"/>
                     <h4>Url Match Regex</h4>
-                    <textarea rows="1" class="match-regex-input" v-on:input="save" v-model="matcher.matchRegex"></textarea>
+                    <textarea rows="1" class="match-regex-input" v-on:input="save" v-model="matchGroup.matchRegex"></textarea>
                     
                     <h4>Query Params</h4>
-                    <div v-for="param in matcher.queryParams">
+                    <div v-for="param in matchGroup.queryParams">
                         <div class="input-param-wrapper">
                             <input type="checkbox" v-model="param.enabled" v-on:change="save" />
                             <input type="text" v-model="param.key" v-on:input="save" placeholder="key"/>
                             <input type="text" v-model="param.value" v-on:input="save" placeholder="value"/>
-                            <input type="button" class="delete-button" v-on:click="removeQueryParam(matcherIndex, param)" value="✕" />
+                            <input type="button" class="delete-button" v-on:click="removeQueryParam(matchGroupIndex, param)" value="✕" />
                         </div>
                     </div>
-                    <input type="button" class="add-button" value="Add" v-on:click="addQueryParam(matcherIndex)">
+                    <input type="button" class="add-button" value="Add" v-on:click="addQueryParam(matchGroupIndex)">
                 </div>
             </div>
 
-            <input type="button" class="add-button" value="Add Group" v-on:click="addMatcher">
+            <input type="button" class="add-button" value="Add Group" v-on:click="addMatchGroup">
         </div>
         
         <script src="script.js"></script>
