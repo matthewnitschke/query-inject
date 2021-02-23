@@ -9,20 +9,32 @@ function insertUrlParam(key, value) {
 
 function injectParams(queryParams) {
 	console.log(`Injecting Parameters: ${JSON.stringify(queryParams)}`);
+
+	let searchParams = new URLSearchParams(window.location.search);
+	
 	queryParams
 		.filter(param => param.enabled)
-		.forEach(({key, value}) => insertUrlParam(key, value))
+		.forEach(({key, value}) => searchParams.set(key, value))
+
+	queryParams
+		.filter(param => !param.enabled)
+		.forEach(({key}) => searchParams.delete(key))
+
+	let newurl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?${searchParams.toString()}`;
+	window.history.pushState({path: newurl}, '', newurl);
 }
 
-chrome.storage.sync.get(['globalEnabled', 'queryParams', 'urlMatches'], ({globalEnabled, queryParams, urlMatches}) => {
-    if (!globalEnabled || (urlMatches ?? '').length <= 0) {
+chrome.storage.sync.get(['globalEnabled', 'matchGroups'], ({globalEnabled, matchGroups}) => {
+    if (!globalEnabled) {
         return;
     }
 
-	let reg = new RegExp(urlMatches)
-	if (!window.location.href.match(reg)) {
-		return
-	}
+	(matchGroups ?? []).forEach(({matchRegex, queryParams}) => {
+		let reg = new RegExp(matchRegex)
+		if (!window.location.href.match(reg)) {
+			return
+		}
 
-	injectParams(queryParams);
+		injectParams(queryParams);
+	});
 });

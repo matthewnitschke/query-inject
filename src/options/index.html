@@ -19,23 +19,28 @@
                 <label for="globalEnabled">Enabled</label>
             </div>
 
-            <h3>Query Params to Inject</h3>
-
-            <div class="query-params" v-for="param in queryParams">
-                <div class="input-param-wrapper">
-                    <input type="checkbox" v-model="param.enabled" v-on:change="save" />
-                    <input type="text" v-model="param.key" v-on:input="save" placeholder="key"/>
-                    <input type="text" v-model="param.value" v-on:input="save" placeholder="value"/>
-                    <input type="button" value="-" v-on:click="remove(param)">
+            <h3>Match Groups</h3>
+            
+            <div v-for="(matcher, matcherIndex) in matchers">
+                <div class="match-group">
+                    <input type="button" class="delete-button" value="✕" v-on:click="removeMatcher(matcherIndex)"/>
+                    <h4>Url Match Regex</h4>
+                    <textarea rows="1" class="match-regex-input" v-on:input="save" v-model="matcher.matchRegex"></textarea>
+                    
+                    <h4>Query Params</h4>
+                    <div v-for="param in matcher.queryParams">
+                        <div class="input-param-wrapper">
+                            <input type="checkbox" v-model="param.enabled" v-on:change="save" />
+                            <input type="text" v-model="param.key" v-on:input="save" placeholder="key"/>
+                            <input type="text" v-model="param.value" v-on:input="save" placeholder="value"/>
+                            <input type="button" class="delete-button" v-on:click="removeQueryParam(matcherIndex, param)" value="✕" />
+                        </div>
+                    </div>
+                    <input type="button" class="add-button" value="Add" v-on:click="addQueryParam(matcherIndex)">
                 </div>
             </div>
 
-            <input type="button" id="add" value="+" v-on:click="add">
-
-            <div>
-                <h3>Url Matcher Regex</h3>
-                <textarea class="page-matcher" v-model="urlMatches" v-on:input="save"></textarea>
-            </div>
+            <input type="button" class="add-button" value="Add Group" v-on:click="addMatcher">
         </div>
         
         <script src="script.js"></script>

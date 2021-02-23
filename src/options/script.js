@@ -2,38 +2,52 @@ var app = new Vue({
     el: '#app',
     data: {
         globalEnabled: true,
-        queryParams: [],
-        urlMatches: ''
+        matchers: [{
+            matchRegex: 'http://www.google.com',
+            queryParams: [{
+                enabled: true,
+                key: 'debug',
+                value: 'false'
+            }]
+        }],
     },
     mounted: function() {
         this.load();
     },
     methods: {
-        add: function () {
-            this.queryParams.push({
-                enabled: true
+        addMatcher: function () {
+            this.matchers.push({
+                matchRegex: '',
+                queryParams: []
             })
-
             this.save();
         },
-        remove: function(item) {
-            let index = this.queryParams.indexOf(item)
-            this.queryParams.splice(index, 1)
-
+        removeMatcher: function(matcherIndex) {
+            this.matchers.splice(matcherIndex, 1);
+            this.save();
+        },
+        addQueryParam: function(matcherIndex) {
+            this.matchers[matcherIndex].queryParams.push({
+                enabled: true
+            })
+            this.save();
+        },
+        removeQueryParam: function(matcherIndex, item) {
+            let index = this.matchers[matcherIndex].queryParams.indexOf(item)
+            this.matchers[matcherIndex].queryParams.splice(index, 1)
             this.save();
         },
         save: function() {
+            console.log('saved');
             chrome.storage.sync.set({
                 globalEnabled: this.globalEnabled,
-                queryParams: this.queryParams,
-                urlMatches: this.urlMatches
+                matchGroups: this.matchers
             });
         },
         load: function() {
-            chrome.storage.sync.get(['globalEnabled', 'queryParams', 'urlMatches'], ({globalEnabled, queryParams, urlMatches}) => {
+            chrome.storage.sync.get(['globalEnabled', 'matchGroups'], ({globalEnabled, matchGroups}) => {
                 this.globalEnabled = globalEnabled ?? this.globalEnabled;
-                this.queryParams = queryParams ?? this.queryParams;
-                this.urlMatches = urlMatches ?? this.urlMatches;
+                this.matchers = matchGroups ?? this.matchers;
             });            
         } 
     }

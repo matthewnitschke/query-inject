@@ -1,7 +1,7 @@
 
 body {
     padding: .5rem;
-    min-width: 20rem;
+    min-width: 25rem;
 }
 
 h2 {
@@ -9,6 +9,11 @@ h2 {
 }
 h3 {
     margin-top: 1.6rem;
+}
+
+h4 {
+    margin-top: 0;
+    margin-bottom: .4rem;
 }
 
 .global-enabled-wrapper {
@@ -25,6 +30,52 @@ h3 {
 
 .page-matcher {
     width: 100%;
+}
+
+.match-group {
+    position: relative;
+    background-color: #e0e0e0;
+    padding: 1rem;
+    margin: .8rem 0;
+    border-left: solid .2rem #0575fb;
+}
+
+.match-regex-input {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.delete-button {
+    border: none;
+    background-color: rgba(0,0,0,0);
+    color: red;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 0;
+    outline: none;
+}
+
+.delete-button:hover {
+    color: darkred;
+}
+
+
+.match-group > .delete-button {
+    position: absolute;
+    right: 10px;
+    top: 7px;
+}
+
+.match-group > .add-button {
+    margin-top: 1rem;
+}
+
+.input-param-wrapper input[type="text"] {
+    width: 100%;
+}
+
+.input-param-wrapper > .delete-button {
+    font-size: 15px;
 }
 
 input[type="text"] {
@@ -52,21 +103,4 @@ input[type="checkbox"]:not(:checked) + input + input + input {
 
 #add:hover {
     background-color: grey;
-}
-
-.delete-button {
-    background-color: red;
-    border: none;
-    color: #FFF;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 1.2rem;
-    height: 1.2rem;
-    cursor: pointer;
-}
-
-.delete-button:hover {
-    background-color: darkred;
 }
