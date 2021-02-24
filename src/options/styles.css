@@ -27,6 +27,21 @@ h3 {
     width: 100%;
 }
 
+.delete-button {
+    border: none;
+    background-color: rgba(0,0,0,0);
+    color: red;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 0;
+    outline: none;
+    font-size: 15px;
+}
+
+.delete-button:hover {
+    color: darkred;
+}
+
 input[type="text"] {
     margin-right: .2rem;
     border: solid 1px lightgrey;
@@ -52,21 +67,4 @@ input[type="checkbox"]:not(:checked) + input + input + input {
 
 #add:hover {
     background-color: grey;
-}
-
-.delete-button {
-    background-color: red;
-    border: none;
-    color: #FFF;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 1.2rem;
-    height: 1.2rem;
-    cursor: pointer;
-}
-
-.delete-button:hover {
-    background-color: darkred;
 }

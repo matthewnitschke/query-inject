@@ -26,7 +26,7 @@
                     <input type="checkbox" v-model="param.enabled" v-on:change="save" />
                     <input type="text" v-model="param.key" v-on:input="save" placeholder="key"/>
                     <input type="text" v-model="param.value" v-on:input="save" placeholder="value"/>
-                    <input type="button" value="-" v-on:click="remove(param)">
+                    <input type="button" class="delete-button" value="✕" v-on:click="remove(param)">
                 </div>
             </div>
 
