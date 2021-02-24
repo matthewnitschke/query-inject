@@ -22,7 +22,7 @@ var app = new Vue({
             })
             this.save();
         },
-        removeMatcher: function(matchGroupIndex) {
+        removeMatchGroup: function(matchGroupIndex) {
             this.matchGroups.splice(matchGroupIndex, 1);
             this.save();
         },
