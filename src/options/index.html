@@ -15,7 +15,7 @@
             <h2>Query Inject</h2>
 
             <div class="global-enabled-wrapper">
-                <input type="checkbox" v-model="globalEnabled" v-on:change="save"/>
+                <input type="checkbox" v-model="globalEnabled" @change="save"/>
                 <label for="globalEnabled">Enabled</label>
             </div>
 
@@ -23,18 +23,25 @@
 
             <div class="query-params" v-for="param in queryParams">
                 <div class="input-param-wrapper">
-                    <input type="checkbox" v-model="param.enabled" v-on:change="save" />
-                    <input type="text" v-model="param.key" v-on:input="save" placeholder="key"/>
-                    <input type="text" v-model="param.value" v-on:input="save" placeholder="value"/>
-                    <input type="button" class="delete-button" value="✕" v-on:click="remove(param)">
+                    <input type="checkbox" v-model="param.enabled" @change="save" />
+                    <input type="text" v-model="param.key" @input="save" placeholder="key"/>
+                    <input type="text" v-model="param.value" @input="save" placeholder="value"/>
+                    <input type="button" class="delete-button" value="✕" @click="removeQueryParam(param)">
                 </div>
             </div>
 
-            <input type="button" id="add" value="+" v-on:click="add">
+            <input type="button" class="button" value="+" @click="addQueryParam">
 
             <div>
-                <h3>Url Matcher Regex</h3>
-                <textarea class="page-matcher" v-model="urlMatches" v-on:input="save"></textarea>
+                <h3>Url Matchers</h3>
+                <div v-for="urlMatch in urlMatchers">
+                    <div class="input-param-wrapper">
+                        <input type="checkbox" v-model="urlMatch.enabled" @change="save" />
+                        <input type="text" v-model="urlMatch.matchStr" @input="save" placeholder="url" />
+                        <input type="button" class="delete-button" value="✕" @click="removeUrlMatcher(urlMatch)">
+                    </div>
+                </div>
+                <input type="button" class="button" value="+" @click="addMatcher">
             </div>
         </div>
         
