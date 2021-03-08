@@ -16,6 +16,7 @@
   "permissions": ["storage"],
   "content_scripts": [
     {
+      "run_at": "document_start",
       "matches": ["<all_urls>"],
       "js": ["src/inject/inject.js"]
     }
