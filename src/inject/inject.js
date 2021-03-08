@@ -34,15 +34,24 @@ function setUrlSearchParams(searchParams) {
 }
 
 function doesUrlMatch(url, matchUrls) {
-	const enabledUrls = matchUrls
-		.filter(({enabled}) => enabled)
-		.map(({matchStr}) => matchStr);
+	// const enabledUrls = matchUrls
+	// 	.filter(({enabled}) => enabled)
+	// 	.map(({matchStr}) => matchStr);
 
-	const regexUrl = `(${enabledUrls.join(')|(')})`
-		.replace(/\//g, '\\/') // escape '/' charachters
-		.replace(/\*/g, '.*'); // convert '*' into '.*' for match all
+	// const regexUrl = `(${enabledUrls.join(')|(')})`
+	// 	.replace(/\//g, '\\/') // escape '/' charachters
+	// 	.replace(/\*/g, '.*'); // convert '*' into '.*' for match all
 
-	return RegExp(`^${regexUrl}$`, 'i').test(url)
+	// return RegExp(`^${regexUrl}$`, 'i').test(url)
+
+	for (let i = 0; i < matchUrls.length; i ++) {
+		if (url.startsWith(matchUrls[i])) {
+			return true;
+		}
+	}
+
+	return false;
+
 }
 
 chrome.storage.sync.get(['globalEnabled', 'queryParams', 'urlMatchers'], ({globalEnabled, queryParams, urlMatchers}) => {
