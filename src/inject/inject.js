@@ -56,7 +56,5 @@ chrome.storage.sync.get(['globalEnabled', 'queryParams', 'urlMatchers'], ({globa
 
 	if (doesUrlMatch(window.location.href, matchers)) {
 		injectParams(queryParams);
-	} else {
-		clearInjectedParams(queryParams);
 	}
 });
