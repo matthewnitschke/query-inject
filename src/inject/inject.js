@@ -14,15 +14,6 @@ function injectParams(queryParams) {
 	setUrlSearchParams(searchParams);
 }
 
-function clearInjectedParams(queryParams) {
-	let searchParams = new URLSearchParams(window.location.search);
-	
-	queryParams
-		.forEach(({key, value}) => searchParams.delete(key, value))
-
-	setUrlSearchParams(searchParams);
-}
-
 function setUrlSearchParams(searchParams) {
 	let newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
 
