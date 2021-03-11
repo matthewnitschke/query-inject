@@ -21,19 +21,27 @@ function setUrlSearchParams(searchParams) {
 		newUrl += `?${searchParams.toString()}`
 	}
 
+	// add the hash, contains the '#' character
+	newUrl += window.location.hash
+
 	window.history.pushState({path: newUrl}, '', newUrl);
 }
 
 function doesUrlMatch(url, matchUrls) {
-	const enabledUrls = matchUrls
-		.filter(({enabled}) => enabled)
-		.map(({matchStr}) => matchStr);
-
-	const regexUrl = `(${enabledUrls.join(')|(')})`
+	const regexUrl = `(${matchUrls.join(')|(')})`
 		.replace(/\//g, '\\/') // escape '/' charachters
 		.replace(/\*/g, '.*'); // convert '*' into '.*' for match all
 
 	return RegExp(`^${regexUrl}$`, 'i').test(url)
+}
+
+function clearInjectedParams(queryParams) {
+	let searchParams = new URLSearchParams(window.location.search);
+
+	queryParams
+		.forEach(({key, value}) => searchParams.delete(key, value))
+
+	setUrlSearchParams(searchParams);
 }
 
 chrome.storage.sync.get(['globalEnabled', 'queryParams', 'urlMatchers'], ({globalEnabled, queryParams, urlMatchers}) => {
@@ -45,7 +53,20 @@ chrome.storage.sync.get(['globalEnabled', 'queryParams', 'urlMatchers'], ({globa
         return;
     }
 
-	if (doesUrlMatch(window.location.href, matchers)) {
+	const {enabledUrls, disabledUrls} = urlMatchers.reduce((acc, {enabled, matchStr}) => {
+		if (enabled) {
+			acc.enabledUrls.push(matchStr)
+		} else {
+			acc.disabledUrls.push(matchStr)
+		}
+		return acc
+	}, {enabledUrls: [], disabledUrls: []});
+
+	if (doesUrlMatch(window.location.href, enabledUrls)) {
+		// if the current url matches any of the enabledUrls, inject the params
 		injectParams(queryParams);
+	} else if (doesUrlMatch(window.location.href, disabledUrls)) {
+		// if the current url matches any of the disabledUrls (and non of the enabled urls), clear all params
+		clearInjectedParams(queryParams)
 	}
 });
