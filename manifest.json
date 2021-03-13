@@ -7,18 +7,18 @@
    "128": "128.png" 
   },
   "manifest_version": 2,
-  "options_page": "src/options/index.html",
+  "options_page": "dist/options/index.html",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "browser_action": {
     "default_title": "Query Inject",
-    "default_popup": "src/options/index.html"
+    "default_popup": "dist/options/index.html"
   },
   "permissions": ["storage"],
   "content_scripts": [
     {
       "run_at": "document_start",
       "matches": ["<all_urls>"],
-      "js": ["src/inject/inject.js"]
+      "js": ["dist/inject/inject.js"]
     }
   ]
 }

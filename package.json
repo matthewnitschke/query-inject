@@ -1,0 +1,21 @@
+{
+  "name": "query-inject",
+  "version": "1.0.2",
+  "scripts": {
+    "build": "parcel src/options/index.html src/inject/entry.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthewnitschke/query-inject.git"
+  },
+  "author": "",
+  "dependencies": {
+    "vue": "^2.6.12"
+  },
+  "devDependencies": {
+    "parcel": "^2.0.0-beta.1"
+  },
+  "alias": {
+    "vue" : "./node_modules/vue/dist/vue.common.js"
+  }
+}
