@@ -19,31 +19,34 @@
                 <label for="globalEnabled">Enabled</label>
             </div>
 
-            <h3>Query Params to Inject</h3>
-
-            <div class="query-params" v-for="param in queryParams">
-                <div class="input-param-wrapper">
-                    <input type="checkbox" v-model="param.enabled" @change="save" />
-                    <input type="text" v-model="param.key" @input="save" placeholder="key"/>
-                    <input type="text" v-model="param.value" @input="save" placeholder="value"/>
-                    <input type="button" class="delete-button" value="✕" @click="removeQueryParam(param)">
-                </div>
-            </div>
-
-            <input type="button" class="button" value="+" @click="addQueryParam">
-
-            <div>
-                <h3>Url Matchers</h3>
-                <div v-for="urlMatch in urlMatchers">
+            <div :class="{ disabled: !globalEnabled }">
+                <h3>Query Params to Inject</h3>
+    
+                <div class="query-params" v-for="param in queryParams">
                     <div class="input-param-wrapper">
-                        <input type="checkbox" v-model="urlMatch.enabled" @change="save" />
-                        <input type="text" v-model="urlMatch.matchStr" @input="save" placeholder="url" />
-                        <input type="button" class="delete-button" value="✕" @click="removeUrlMatcher(urlMatch)">
+                        <input type="checkbox" v-model="param.enabled" @change="save" />
+                        <input type="text" v-model="param.key" @input="save" placeholder="key"/>
+                        <input type="text" v-model="param.value" @input="save" placeholder="value"/>
+                        <input type="button" class="delete-button" value="✕" @click="removeQueryParam(param)">
                     </div>
                 </div>
-                <input type="button" class="button" value="+" @click="addMatcher">
+    
+                <input type="button" class="button" value="+" @click="addQueryParam">
+    
+                <div>
+                    <h3>Url Matchers</h3>
+                    <div v-for="urlMatch in urlMatchers">
+                        <div class="input-param-wrapper">
+                            <input type="checkbox" v-model="urlMatch.enabled" @change="save" />
+                            <input type="text" v-model="urlMatch.matchStr" @input="save" placeholder="url" />
+                            <input type="button" class="delete-button" value="✕" @click="removeUrlMatcher(urlMatch)">
+                        </div>
+                    </div>
+                    <input type="button" class="button" value="+" @click="addMatcher">
+                </div>
             </div>
-        </div>
+            </div>
+
         
         <script src="script.js"></script>
     </body>
