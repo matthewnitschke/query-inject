@@ -2,7 +2,8 @@
   "name": "query-inject",
   "version": "1.0.2",
   "scripts": {
-    "build": "parcel src/options/index.html src/inject/entry.js"
+    "clean": "rm -r dist",
+    "build": "parcel --dist-dir dist src/options/index.html"
   },
   "repository": {
     "type": "git",
@@ -16,6 +17,6 @@
     "parcel": "^2.0.0-beta.1"
   },
   "alias": {
-    "vue" : "./node_modules/vue/dist/vue.common.js"
+    "vue": "./node_modules/vue/dist/vue.common.js"
   }
 }

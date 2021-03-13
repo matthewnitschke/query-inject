@@ -1,16 +1,28 @@
 import Vue from 'vue'
 
+const iconPath = '../../icons';
+
 var app = new Vue({
     el: '#app',
     data: {
         globalEnabled: true,
         queryParams: [],
-        urlMatchers: [
-            { enabled: true, matchStr: "http://www.google.com/*" }
-        ]
+        urlMatchers: []
     },
     mounted: function() {
         this.load();
+    },
+    watch: {
+        globalEnabled: function(isEnabled) {
+            const iconText = isEnabled ? 'enabled' : 'disabled';
+            chrome.browserAction.setIcon({ 
+                path: {
+                    "16": `${iconPath}/16-${iconText}.png`,
+                    "48": `${iconPath}/48-${iconText}.png`,
+                   "128": `${iconPath}/128-${iconText}.png` 
+                } 
+            })
+        }
     },
     methods: {
         addQueryParam: function () {
