@@ -1,4 +1,4 @@
-function injectParams(queryParams) {
+function injectParams(queryParams, removeDisabledParams) {
 	console.log(`Injecting Parameters: ${JSON.stringify(queryParams)}`);
 
 	let searchParams = new URLSearchParams(window.location.search);
@@ -7,9 +7,12 @@ function injectParams(queryParams) {
 		.filter(param => param.enabled)
 		.forEach(({key, value}) => searchParams.set(key, value))
 	
-	queryParams
-		.filter(param => !param.enabled)
-		.forEach(({key, value}) => searchParams.delete(key, value))
+	// only remove disabled params if that setting is enabled
+	if (removeDisabledParams) {
+		queryParams
+			.filter(param => !param.enabled)
+			.forEach(({key, value}) => searchParams.delete(key, value))
+	}
 
 	setUrlSearchParams(searchParams);
 }
@@ -44,29 +47,32 @@ function clearInjectedParams(queryParams) {
 	setUrlSearchParams(searchParams);
 }
 
-chrome.storage.sync.get(['globalEnabled', 'queryParams', 'urlMatchers'], ({globalEnabled, queryParams, urlMatchers}) => {
-	if (!history.pushState) return;
+chrome.storage.sync.get(
+	['globalEnabled', 'queryParams', 'urlMatchers', 'removeDisabledParams'], 
+	({globalEnabled, queryParams, urlMatchers, removeDisabledParams}) => {
+		if (!history.pushState) return;
 
-	let matchers = (urlMatchers ?? []);
+		let matchers = (urlMatchers ?? []);
 
-    if (!globalEnabled || matchers.length <= 0) {
-        return;
-    }
-
-	const {enabledUrls, disabledUrls} = urlMatchers.reduce((acc, {enabled, matchStr}) => {
-		if (enabled) {
-			acc.enabledUrls.push(matchStr)
-		} else {
-			acc.disabledUrls.push(matchStr)
+		if (!globalEnabled || matchers.length <= 0) {
+			return;
 		}
-		return acc
-	}, {enabledUrls: [], disabledUrls: []});
 
-	if (doesUrlMatch(window.location.href, enabledUrls)) {
-		// if the current url matches any of the enabledUrls, inject the params
-		injectParams(queryParams);
-	} else if (doesUrlMatch(window.location.href, disabledUrls)) {
-		// if the current url matches any of the disabledUrls (and non of the enabled urls), clear all params
-		clearInjectedParams(queryParams)
+		const {enabledUrls, disabledUrls} = urlMatchers.reduce((acc, {enabled, matchStr}) => {
+			if (enabled) {
+				acc.enabledUrls.push(matchStr)
+			} else {
+				acc.disabledUrls.push(matchStr)
+			}
+			return acc
+		}, {enabledUrls: [], disabledUrls: []});
+
+		if (doesUrlMatch(window.location.href, enabledUrls)) {
+			// if the current url matches any of the enabledUrls, inject the params
+			injectParams(queryParams, removeDisabledParams);
+		} else if (removeDisabledParams && doesUrlMatch(window.location.href, disabledUrls)) {
+			// if the current url matches any of the disabledUrls (and non of the enabled urls), clear all params
+			clearInjectedParams(queryParams)
+		}
 	}
-});
+);

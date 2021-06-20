@@ -1,0 +1,22 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+
+  "jest": {
+    "preset": "jest-puppeteer"
+  },
+
+  "devDependencies": {
+    "puppeteer": "^10.0.0",
+    "jest": "^27.0.4",
+    "jest-puppeteer": "^5.0.4"
+  }
+}

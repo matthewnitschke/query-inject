@@ -14,16 +14,15 @@
 
             <h2>Query Inject</h2>
 
-            <div class="global-enabled-wrapper">
-                <input type="checkbox" v-model="globalEnabled" @change="save"/>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="globalEnabledCheckbox" v-model="globalEnabled" @change="save"/>
                 <label for="globalEnabled">Enabled</label>
             </div>
 
             <div :class="{ disabled: !globalEnabled }">
                 <h3>Query Params to Inject</h3>
-    
-                <div class="query-params" v-for="param in queryParams">
-                    <div class="input-param-wrapper">
+                <div id="queryParams" class="inputs-container">
+                    <div class="inputs-row" v-for="param in queryParams">
                         <input type="checkbox" v-model="param.enabled" @change="save" />
                         <input type="text" v-model="param.key" @input="save" placeholder="key"/>
                         <input type="text" v-model="param.value" @input="save" placeholder="value"/>
@@ -31,19 +30,44 @@
                     </div>
                 </div>
     
-                <input type="button" class="button" value="+" @click="addQueryParam">
+                <input 
+                    id="addQueryParamButton" 
+                    type="button" 
+                    class="button" 
+                    value="+" 
+                    @click="addQueryParam"
+                >
     
-                <div>
-                    <h3>Url Matchers</h3>
-                    <div v-for="urlMatch in urlMatchers">
-                        <div class="input-param-wrapper">
-                            <input type="checkbox" v-model="urlMatch.enabled" @change="save" />
-                            <input type="text" v-model="urlMatch.matchStr" @input="save" placeholder="url" />
-                            <input type="button" class="delete-button" value="✕" @click="removeUrlMatcher(urlMatch)">
+                <details 
+                    id="settingsDetails" 
+                    style="margin-top: 1.6rem;" 
+                >
+                    <summary>Settings</summary>
+                    <div>
+                        <h3>Url Matchers <a class="help-button" target="_blank" href="https://github.com/matthewnitschke/query-inject/wiki/Url-Matchers">?</a></h3>
+                        <div id="urlMatchers" class="inputs-container">
+                            <div class="inputs-row" v-for="urlMatch in urlMatchers">
+                                <input type="checkbox" v-model="urlMatch.enabled" @change="save" />
+                                <input type="text" v-model="urlMatch.matchStr" @input="save" placeholder="url" />
+                                <input type="button" class="delete-button" value="✕" @click="removeUrlMatcher(urlMatch)">
+                            </div>
+                        </div>
+                        <input 
+                            id="addUrlMatcherButton"
+                            type="button" 
+                            class="button" 
+                            value="+" 
+                            @click="addMatcher">
+                    </div>
+
+                    <div>
+                        <h3>Remove Disabled Params <a class="help-button" target="_blank" href="https://github.com/matthewnitschke/query-inject/wiki/Remove-Disabled-Params">?</a></h3>
+                        <div class="checkbox-wrapper">
+                            <input id="removeDisabledParamsCheckbox" type="checkbox" v-model="removeDisabledParams" @change="save"/>
+                            <label for="removeDisabledParams">Enabled</label>
                         </div>
                     </div>
-                    <input type="button" class="button" value="+" @click="addMatcher">
-                </div>
+                </details>
             </div>
             </div>
 

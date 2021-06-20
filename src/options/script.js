@@ -4,6 +4,7 @@ var app = new Vue({
     el: '#app',
     data: {
         globalEnabled: true,
+        removeDisabledParams: false,
         queryParams: [],
         urlMatchers: []
     },
@@ -53,15 +54,20 @@ var app = new Vue({
             chrome.storage.sync.set({
                 globalEnabled: this.globalEnabled,
                 queryParams: this.queryParams,
-                urlMatchers: this.urlMatchers
+                urlMatchers: this.urlMatchers,
+                removeDisabledParams: this.removeDisabledParams,
             });
         },
         load: function() {
-            chrome.storage.sync.get(['globalEnabled', 'queryParams', 'urlMatchers'], ({globalEnabled, queryParams, urlMatchers}) => {
-                this.globalEnabled = globalEnabled ?? this.globalEnabled;
-                this.queryParams = queryParams ?? this.queryParams;
-                this.urlMatchers = urlMatchers ?? this.urlMatchers;
-            });            
+            chrome.storage.sync.get(
+                ['globalEnabled', 'queryParams', 'urlMatchers', 'removeDisabledParams'], 
+                ({globalEnabled, queryParams, urlMatchers, removeDisabledParams}) => {
+                    this.globalEnabled = globalEnabled ?? this.globalEnabled;
+                    this.queryParams = queryParams ?? this.queryParams;
+                    this.urlMatchers = urlMatchers ?? this.urlMatchers;
+                    this.removeDisabledParams = removeDisabledParams ?? this.removeDisabledParams;
+                },
+            );            
         } 
     }
 })
