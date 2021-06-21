@@ -1,10 +1,8 @@
 ![icon](https://raw.githubusercontent.com/matthewnitschke/query-inject/master/icons/128-enabled.png)
 
-
 # Query Inject
 
-> Pending chrome web store extension approval
-
+![icon](https://img.shields.io/chrome-web-store/v/cjglgegdmjocojbgocdjnpkkeongjmlg?style=for-the-badge)
 
 A small chrome extension that injects query parameters before the page loads.
 
