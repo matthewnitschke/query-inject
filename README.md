@@ -1,4 +1,4 @@
-![icon](https://github.com/matthewnitschke/query-inject/blob/master/128.png)
+![icon](https://github.com/matthewnitschke/query-inject/blob/master/128-enabled.png)
 
 # Query Inject
 
