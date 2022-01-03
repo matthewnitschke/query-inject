@@ -2,7 +2,7 @@
 
 # Query Inject
 
-[![CI](https://img.shields.io/chrome-web-store/v/cjglgegdmjocojbgocdjnpkkeongjmlg?style=for-the-badge)](https://chrome.google.com/webstore/detail/query-inject/cjglgegdmjocojbgocdjnpkkeongjmlg)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/v/cjglgegdmjocojbgocdjnpkkeongjmlg) ![Chrome Web Store](https://img.shields.io/chrome-web-store/users/cjglgegdmjocojbgocdjnpkkeongjmlg)
 
 A small chrome extension that injects query parameters before the page loads.
 
