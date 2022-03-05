@@ -23,13 +23,16 @@ chrome.storage.sync.get([
 	
 	// Log what will happen
 	console.groupCollapsed('Query Inject');
-	console.log(JSON.stringify({paramsToAdd, paramsToDelete}, null, 2));
+	console.log(JSON.stringify({
+		injected: paramsToAdd, 
+		deleted: paramsToDelete,
+	}, null, 2));
 	console.groupEnd();
 
 	// Preform the injection/exclusion
 	let searchParams = new URLSearchParams(window.location.search);
 	paramsToAdd.forEach(({key, value}) => searchParams.set(key, value));
-	paramsToDelete.forEach(({key}) => searchParams.delete(key));
+	paramsToDelete.forEach(searchParams.delete);
 	setUrlSearchParams(searchParams);
 });
 
@@ -61,11 +64,11 @@ function parseParameters(
 			} else {
 				acc.disabledParams[key] = value
 			}
+			return acc;
 		}, {enabledParams: {}, disabledParams: {}});
 
 		let paramsToDelete = Object.keys(disabledParams)
-			.filter(key => !enabledParams.hasOwnProperty(key))
-			.reduce((acc, key) => (res[key] = disabledParams[key]), {})
+			.filter(key => !enabledParams.hasOwnProperty(key));
 
 		return {
 			paramsToAdd: enabledParams,
@@ -76,36 +79,9 @@ function parseParameters(
 		// if the current url matches any of the disabledUrls (and non of the enabled urls), clear all params
 		return {
 			paramsToAdd: {},
-			paramsToDelete: queryParams.reduce((acc, {key, value}) => ({...acc, [key]: value}), {})
+			paramsToDelete: queryParams.map(({key}) => key)
 		}
 	}
-}
-
-function injectParams(queryParams) {
-	let searchParams = new URLSearchParams(window.location.search);
-
-	console.groupCollapsed('Injecting Query Parameters');
-
-	let enabledParameters = queryParams
-		.filter(({enabled}) => enabled)
-		.reduce((acc, {key, value}) => {
-			searchParams.set(key, value);
-			console.log(`${key}: '${value}'`);
-			return [...acc, key];
-		}, []);
-
-	console.groupCollapsed("Params Deleted from URL");
-	queryParams
-		.filter(({key, enabled}) => !enabled && !enabledParameters.hasOwnProperty(key))
-		.forEach(({key, value}) => {
-			searchParams.delete(key, value);
-			console.log(`${key}: '${value}'`)
-		});
-	
-	console.groupEnd();
-	console.groupEnd();
-
-	setUrlSearchParams(searchParams);
 }
 
 // ------------------------------------ Utils ------------------------------------
