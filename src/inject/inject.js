@@ -31,8 +31,8 @@ chrome.storage.sync.get([
 
 	// Preform the injection/exclusion
 	let searchParams = new URLSearchParams(window.location.search);
-	paramsToAdd.forEach(({key, value}) => searchParams.set(key, value));
-	paramsToDelete.forEach(searchParams.delete);
+	Object.keys(paramsToAdd).forEach(key => searchParams.set(key, paramsToAdd[key]));
+	paramsToDelete.forEach(key => searchParams.delete(key));
 	setUrlSearchParams(searchParams);
 });
 
