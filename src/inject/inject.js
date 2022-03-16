@@ -82,6 +82,11 @@ function parseParameters(
 			paramsToDelete: queryParams.map(({key}) => key)
 		}
 	}
+
+	return {
+		paramsToAdd: {},
+		paramsToDelete: [],
+	}
 }
 
 // ------------------------------------ Utils ------------------------------------

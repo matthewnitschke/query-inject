@@ -25,8 +25,8 @@
                 <div class="query-params" v-for="param in queryParams">
                     <div class="input-param-wrapper">
                         <input type="checkbox" v-model="param.enabled" @change="save" />
-                        <input type="text" v-model="param.key" @input="save" placeholder="key"/>
-                        <input type="text" v-model="param.value" @input="save" placeholder="value"/>
+                        <input type="text" v-model="param.key" @input="save" placeholder="key" />
+                        <input type="text" v-model="param.value" @input="save" placeholder="value" style="flex-shrink: 2"/>
                         <input type="button" class="delete-button" value="✕" @click="removeQueryParam(param)">
                     </div>
                 </div>
