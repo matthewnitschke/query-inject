@@ -74,3 +74,18 @@ input[type="checkbox"]:not(:checked) + input + input + input {
     color: grey;
     opacity: .6;
 }
+
+
+.duplicate-key-warning {
+    margin-bottom: .5rem;
+}
+
+.duplicate-key-warning:after {
+    content: 'Duplicate key, this is known to cause issues';
+    color: red;
+    margin-left: 1.5rem;
+}
+
+.duplicate-key-warning input[placeholder="key"] {
+    border: solid 2px red;
+}

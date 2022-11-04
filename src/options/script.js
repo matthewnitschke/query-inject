@@ -23,6 +23,11 @@ var app = new Vue({
         }
     },
     methods: {
+        isDuplicate: function(item) {
+            return this.queryParams
+                .filter(({key}) => item.key == key)
+                .length > 1;
+        },
         addQueryParam: function () {
             this.queryParams.push({
                 enabled: true
