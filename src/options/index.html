@@ -22,7 +22,7 @@
             <div :class="{ disabled: !globalEnabled }">
                 <h3>Query Params to Inject</h3>
     
-                <div :class="{ 'query-params': true, 'duplicate-key-warning': isDuplicate(param) }" v-for="param in queryParams">
+                <div :class="{ 'query-params': true, 'duplicate-key-warning': hasDuplicateKey(param) }" v-for="param in queryParams">
                     <div class="input-param-wrapper">
                         <input type="checkbox" v-model="param.enabled" @change="save" />
                         <input type="text" v-model="param.key" @input="save" placeholder="key" />

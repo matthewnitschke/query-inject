@@ -23,7 +23,7 @@ var app = new Vue({
         }
     },
     methods: {
-        isDuplicate: function(item) {
+        hasDuplicateKey: function(item) {
             return this.queryParams
                 .filter(({key}) => item.key == key)
                 .length > 1;
