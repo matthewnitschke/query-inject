@@ -54,14 +54,14 @@ function runApp() {
                                     type: 'text',
                                     placeholder: 'key',
                                     value: queryParam.key ?? '',
-                                    onchange: (e) => queryParam.key = e.target.value,
+                                    oninput: (e) => queryParam.key = e.target.value,
                                 }),
                                 m('input', {
                                     type: 'text',
                                     placeholder: 'value',
                                     style: 'flex-shrink: 2',
                                     value: queryParam.value ?? '',
-                                    onchange: (e) => queryParam.value = e.target.value
+                                    oninput: (e) => queryParam.value = e.target.value
                                 }),
                                 m('input', {
                                     type: 'button', 
@@ -93,7 +93,7 @@ function runApp() {
                                 type: 'text',
                                 placeholder: 'key',
                                 value: urlMatcher.matchStr ?? '',
-                                onchange: (e) => urlMatcher.matchStr = e.target.value,
+                                oninput: (e) => urlMatcher.matchStr = e.target.value,
                             }),
                             m('input', {
                                 type: 'button', 
