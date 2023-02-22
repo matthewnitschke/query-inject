@@ -6,10 +6,9 @@
     "48": "icons/48-enabled.png",
    "128": "icons/128-enabled.png" 
   },
-  "manifest_version": 2,
+  "manifest_version": 3,
   "options_page": "src/options/index.html",
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "browser_action": {
+  "action": {
     "default_title": "Query Inject",
     "default_popup": "src/options/index.html"
   },
